@@ -9,7 +9,7 @@
 
 
 setInterval(callFunction, 1000);
-
+$attachArr = [];  // musthave to just add one eventlistener per attachment paper clip
 
 function callFunction() {
   // This is the masterfunction. Add all subfunction in here.
@@ -22,9 +22,10 @@ function zipAttachement() {
     for (let $i=0; $i<$attachments.length; $i++) {
       let $files = $attachments[$i].querySelectorAll('[data-type=attachment]');
       let $icon = $attachments[$i].querySelectorAll('.icon-paperclip')[0];
-      $icon.setAttribute('style', 'cursor: pointer');
-      $icon.setAttribute('title', 'Download aller AnhÃ¤nge des Artikels.');
-      $icon.setAttribute('onclick','zipDownload('+$i+')');
+      if ($attachArr[$i] != true) {
+        $attachArr[$i] = true;
+        $icon.onclick = function(event) {event.stopPropagation();zipDownload($i)};
+      }
     }
   }
 
